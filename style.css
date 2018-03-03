@@ -1,0 +1,32 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.bar {
+  fill: purple;
+}
+
+.bar:hover {
+  fill: orange;
+}
+
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
+}
+
+
+body {
+  font: 11px sans-serif;
+}
+ 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
