@@ -33,8 +33,9 @@ d3.csv("data.csv", function(error, myData){
 
   //Set the ranges with scaling functions
   var xValue = function(d){return d.poverty;};
-  var xScale = d3.scaleLinear().range([0,width]);
+  var xScale = d3.scaleLinear().range([0, width]);
   var xMap = function(d){return xScale(xValue(d));};
+
 
   var yValue = function(d){return d.healthcare;};
   var yScale = d3.scaleLinear().range([height, 0]);
@@ -74,7 +75,22 @@ d3.csv("data.csv", function(error, myData){
   svg.append("g")
   .attr("transform", "translate(0, " + height + ")")
   .call(bottomAxis);
+
+  svg.append("text")             
+  .attr("transform",
+    "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+  .style("text-anchor", "middle")
+   .text("In Poverty(%)");
+
   svg.append("g").call(leftAxis);
+
+  svg.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - margin.left)
+  .attr("x", 0 - height/2)
+  .attr("dy","1em")
+  .style("text-anchor", "middle")
+  .text("Lacks Healthcare(%)");
 
   //Draw the dots
   svg.selectAll(".dot")
@@ -98,26 +114,21 @@ d3.csv("data.csv", function(error, myData){
     .duration(500)
     .style("opacity",0);
   });
-
+console.log(myData);
   //Add the text
-  svg.selectAll("text")
+  svg.selectAll("value")
   .data(myData)
   .enter().append("text")
   .style("text-anchor", "middle")
-  .attr("x", xMap)
-  .attr("y", function(d){return yScale(yValue(d) - 0.2);} )
-  .text(function(d){ return d.abbreviation; })
+  .attr("x", function(d){return xScale(xValue(d))})
+  .attr("y", function(d){return yScale(yValue(d) - 0.2)})
+  .text(function(d){return d.abbreviation})
   .attr("font-family", "sans-serif")
   .attr("font-size", "11px")
   .attr("fill", "black");
 
-
-
-
-
-
-
 });
+
 
 
 
